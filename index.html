@@ -6,31 +6,25 @@
   <style>
     body {
       text-align: center;
-      background: rebeccapurple;
+      background: #24292e;
     }
     .icon-box {
       margin: 100px auto;
       display: inline-block;
-      width: 48px;
-      height: 48px;
       background: #ffffff;
-      border-radius: 5px;
       position: relative;
       overflow: hidden;
+      width: 100%;
+      padding: 20px 0;
     }
     .icon-bg {
       background: #24292e;
     }
     .icon-text-group {
       display: inline-block;
-      width: 48px;
-      height: 48px;
-      line-height: 48px;
       border-radius: 5px;
       overflow: hidden;
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: relative;
       text-align: center;
     }
     .icon-text {
@@ -40,33 +34,91 @@
       font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
       -webkit-font-smoothing: antialiased;
     }
+
     .icon-text-F {
-      color: #ffffff;
-      /*color: #20d20d;*/
-      font-size: 30px;
-      margin-right: -5px;
+      width: 100px;
+      height: 200px;
+      position: relative;
+      border-width: 20px 0 0 20px;
+      border-color: #fff;
+      margin-right: -25px;
+      border-style: solid;
+      box-sizing: border-box;
+      z-index: 1;
     }
+    .icon-text-F:before {
+      position: absolute;
+      content: '';
+      top: 70px;
+      left: 0px;
+      width: 80px;
+      height: 20px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
     .icon-text-B {
-      color: red;
-      font-size: 30px;
+      width: 125px;
+      height: 200px;
+      position: relative;
+      border-left: solid 20px red;
+      box-sizing: border-box;
+    }
+    .icon-text-B:before {
+      position: absolute;
+      left: 0;
+      content: '';
+      width: 105px;
+      height: 110px;
+      border-width: 20px 20px 20px 0;
+      border-color: red;
+      border-style: solid;
+      border-radius: 0 180% 180% 0/0 180% 180% 0;
+      box-sizing: border-box;
+    }
+    .icon-text-B:after {
+      position: absolute;
+      left: 0;
+      content: '';
+      bottom: 0;
+      width: 105px;
+      height: 110px;
+      border-width: 20px 20px 20px 0;
+      border-color: red;
+      border-style: solid;
+      border-radius: 0 180% 180% 0/0 180% 180% 0;
+      box-sizing: border-box;
+    }
+    .icon-size-256 {
+      width: 256px;
+      height: 256px;
+      line-height: 256px;
+    }
+
+    .type-one .icon-text-F {
+      margin-right: -85px;
+      width: 80px;
+    }
+    .type-one .icon-text-F:before {
+      width: 40px;
     }
   </style>
 </head>
 <body>
 <div class="icon-box">
-  <div class="icon-text-group icon-bg">
-    <div class="icon-text icon-text-F">F</div>
-    <div class="icon-text icon-text-B">B</div>
+  <div class="icon-text-group icon-bg icon-size-256 type-one">
+    <div class="icon-text icon-text-F"></div>
+    <div class="icon-text icon-text-B"></div>
   </div>
 </div>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="dom-to-image.min.js"></script>
 <script>
-  if (html2canvas) {
-    html2canvas(document.querySelector(".icon-box")).then(canvas => {
+  var el = document.querySelector(".icon-text-group")
+  if (domtoimage) {
+    domtoimage.toPng(el).then(function (dataUrl) {
       var image = new Image()
-      image.src = canvas.toDataURL("image/png")
+        image.src = dataUrl
       console.log('FindBUG logo', image)
-      return image
     })
   }
 </script>
